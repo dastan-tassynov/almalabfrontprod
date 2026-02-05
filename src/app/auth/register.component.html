@@ -1,0 +1,39 @@
+<div class="auth-page">
+  <form class="auth-card" (ngSubmit)="register()">
+
+    <h2>Регистрация</h2>
+
+    <input
+      type="text"
+      placeholder="ФИО"
+      [(ngModel)]="form.fullName"
+      name="fullName"
+      required
+    >
+
+    <input
+      type="text"
+      placeholder="Логин"
+      [(ngModel)]="form.username"
+      name="username"
+      required
+    >
+
+    <input
+      type="password"
+      placeholder="Пароль"
+      [(ngModel)]="form.password"
+      name="password"
+      required
+    >
+
+    <button type="submit">Зарегистрироваться</button>
+
+    <p class="link" (click)="goLogin()">
+      Уже есть аккаунт? Войти
+    </p>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+  </form>
+</div>

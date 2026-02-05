@@ -1,0 +1,439 @@
+/* ===== PAGE ===== */
+.page {
+  min-height: 100vh;
+  background: #f4f8fb;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: #0a3d62;
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.logout {
+  background: #e74c3c;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #c0392b;
+}
+
+/* ===== CONTENT ===== */
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h2 {
+  margin-bottom: 16px;
+  color: #0a3d62;
+}
+
+/* ===== UPLOAD ===== */
+.upload-box {
+  margin-bottom: 20px;
+}
+
+.upload-btn {
+  background: #1e90ff;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.upload-btn:hover {
+  background: #1c7ed6;
+}
+
+/* ===== INFO ===== */
+.info {
+  padding: 20px;
+  background: #eaf2f8;
+  border-radius: 8px;
+  text-align: center;
+  color: #34495e;
+}
+
+/* ===== DOCS ===== */
+.docs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+/* ===== DOC CARD ===== */
+.doc-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== DOC HEADER ===== */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* ===== META ===== */
+.doc-meta {
+  font-size: 13px;
+  color: #7f8c8d;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ===== ACTIONS ===== */
+.doc-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button.primary {
+  background: #27ae60;
+  color: #fff;
+}
+
+button.primary:hover {
+  background: #219150;
+}
+
+button.secondary {
+  background: #f39c12;
+  color: #fff;
+}
+
+button.secondary:hover {
+  background: #d68910;
+}
+
+/* ===== READONLY ===== */
+.readonly {
+  font-size: 14px;
+  color: #555;
+}
+
+/* =======================
+   STATUS BADGES
+   ======================= */
+
+.doc-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* NEW */
+.doc-status.NEW {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}
+
+/* SENT TO ADMIN */
+.doc-status.SENT_TO_ADMIN {
+  background: #d6eaf8;
+  color: #1b4f72;
+}
+
+/* SENT TO SUPERADMIN */
+.doc-status.SENT_TO_SUPERADMIN {
+  background: #d5f5e3;
+  color: #145a32;
+}
+
+/* COMPLETED */
+.doc-status.COMPLETED {
+  background: #2ecc71;
+  color: #ffffff;
+}
+
+/* RETURNED */
+.doc-status.RETURNED {
+  background: #f9ebea;
+  color: #922b21;
+}
+
+/* ===== SIGNATURES ===== */
+.signatures {
+  border-top: 1px dashed #dcdcdc;
+  padding-top: 12px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+/* ROLE BADGE */
+.sign-role {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #d6eaf8;
+  color: #1b4f72;
+}
+
+/* DATE */
+.sign-date {
+  font-size: 13px;
+  color: #566573;
+}
+
+/* QR */
+.qr {
+  margin-left: auto;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* TIMELINE */
+.timeline {
+  margin-top: 16px;
+  padding-left: 24px;
+  border-left: 2px solid #dbeafe;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  padding-bottom: 16px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item .dot {
+  position: absolute;
+  left: -9px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: #2563eb;
+  border-radius: 50%;
+  border: 3px solid #e0f2fe;
+}
+
+.timeline-content {
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+}
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.NEW {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.SENT_TO_ADMIN {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.RETURNED {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.SENT_TO_SUPERADMIN {
+  background: #ede7f6;
+  color: #4527a0;
+}
+
+.COMPLETED {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.signatures {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.sign-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #546e7a;
+  margin-bottom: 8px;
+}
+
+.signature {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fbfc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.sig-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sig-role {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sig-role.ADMIN {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.sig-role.SUPERADMIN {
+  background: #ede7f6;
+  color: #4527a0;
+}
+
+.sig-name {
+  font-weight: 500;
+  color: #263238;
+}
+
+.sig-date {
+  font-size: 12px;
+  color: #78909c;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dash-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.dash-count {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dash-label {
+  font-size: 13px;
+  color: #607d8b;
+}
+
+/* COLORS */
+.dash-card.blue {
+  border-left: 5px solid #1e88e5;
+}
+
+.dash-card.amber {
+  border-left: 5px solid #f9a825;
+}
+
+.dash-card.purple {
+  border-left: 5px solid #6a1b9a;
+}
+
+.dash-card.green {
+  border-left: 5px solid #2e7d32;
+}
+
+.returned-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff8e1;
+  border-left: 4px solid #f9a825;
+}
+
+.returned-box p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+
+
+.timeline-role {
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.timeline-date {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.timeline-comment {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #334155;
+}
+

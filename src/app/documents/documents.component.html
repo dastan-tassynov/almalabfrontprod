@@ -1,0 +1,159 @@
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Alma Lab</h1>
+    <button class="logout" (click)="logout()">Выйти</button>
+  </header>
+
+  <section class="content">
+    <h2>Документы</h2>
+
+    <!-- USER upload -->
+    <div *ngIf="role === 'USER'" class="upload-box">
+      <label class="upload-btn">
+        Загрузить документ
+        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
+      </label>
+<!--      <label class="upload-btn">-->
+<!--        Загрузить DOCX-->
+<!--        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">-->
+<!--      </label>-->
+      <small class="hint">Рекомендуемый формат: .docx</small>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="info">Загрузка...</div>
+
+    <!-- Empty -->
+    <div *ngIf="!loading && documents.length === 0" class="info">
+      Документы отсутствуют
+    </div>
+
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+
+      <div class="dash-card blue">
+        <div class="dash-count">{{ counters.inWork }}</div>
+        <div class="dash-label">В работе</div>
+      </div>
+
+      <div class="dash-card amber">
+        <div class="dash-count">{{ counters.toAdmin }}</div>
+        <div class="dash-label">На подпись админу</div>
+      </div>
+
+      <div class="dash-card purple">
+        <div class="dash-count">{{ counters.toSuper }}</div>
+        <div class="dash-label">Финальная подпись</div>
+      </div>
+
+      <div class="dash-card green">
+        <div class="dash-count">{{ counters.completed }}</div>
+        <div class="dash-label">Завершены</div>
+      </div>
+
+    </div>
+
+
+    <!-- Documents -->
+    <div class="docs" *ngIf="!loading && documents.length">
+      <div class="doc-card" *ngFor="let d of documents">
+
+        <div *ngIf="d.status === 'RETURNED'" class="returned-box">
+          <strong>Возвращено на доработку</strong>
+          <p>{{ d.returnComment }}</p>
+
+          <label class="upload-btn">
+            Загрузить исправленный файл
+            <input type="file" hidden (change)="reupload(d.id, $event)">
+          </label>
+        </div>
+
+
+        <div class="doc-header">
+          <div class="doc-title">{{ d.filename }}</div>
+          <span class="status" [ngClass]="d.status">
+            {{ statusLabel[d.status] }}
+          </span>
+        </div>
+
+        <div class="doc-meta">
+          <span>Категория: {{ d.category }}</span>
+          <span>{{ d.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+        </div>
+
+        <!-- USER -->
+        <div *ngIf="role === 'USER'" class="actions">
+          <span class="hint">
+            {{ userHint[d.status] }}
+          </span>
+        </div>
+
+        <!-- ADMIN -->
+        <div *ngIf="role === 'ADMIN' && d.status === 'SENT_TO_ADMIN'">
+          <button class="btn primary" (click)="adminSign(d.id)">Подписать</button>
+          <button class="btn warn" (click)="openReturn(d)">На доработку</button>
+        </div>
+
+
+        <div class="modal-backdrop" *ngIf="returnDoc">
+
+          <div class="modal">
+            <h3>Возврат на доработку</h3>
+
+            <textarea
+              [(ngModel)]="returnComment"
+              placeholder="Укажите, что необходимо исправить"
+            ></textarea>
+
+            <div class="modal-actions">
+              <button class="btn" (click)="closeReturn()">Отмена</button>
+              <button class="btn warn" (click)="confirmReturn()">Отправить</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SUPERADMIN -->
+        <div *ngIf="role === 'SUPERADMIN' && d.status === 'SENT_TO_SUPERADMIN'" class="actions">
+          <button class="primary" (click)="superSign(d.id)">
+            Финальная подпись
+          </button>
+        </div>
+
+        <!-- COMPLETED -->
+        <div *ngIf="d.status === 'COMPLETED'" class="completed">
+          ✔ Документ завершён и подписан
+        </div>
+
+        <!-- SIGNATURES -->
+        <div class="signatures" *ngIf="d.signatures && d.signatures.length">
+
+          <div class="sign-title">
+            История подписей
+          </div>
+
+          <div class="signature" *ngFor="let s of d.signatures">
+            <div class="sig-left">
+      <span class="sig-role" [ngClass]="s.signerRole">
+        {{ roleLabel[s.signerRole] }}
+      </span>
+              <span class="sig-name">
+        {{ s.signerFullName }}
+      </span>
+            </div>
+
+            <div class="sig-date">
+              {{ s.signedAt | date:'dd.MM.yyyy HH:mm' }}
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+</div>

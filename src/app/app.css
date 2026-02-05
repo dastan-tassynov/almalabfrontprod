@@ -1,0 +1,42 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar li:hover {
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+}
+
+.logout {
+  margin-top: auto;
+  width: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+}

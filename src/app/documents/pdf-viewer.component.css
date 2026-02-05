@@ -1,0 +1,26 @@
+.pdf-page {
+  background: #f4f8fb;
+  height: 100vh;
+}
+
+.header {
+  height: 60px;
+  background: #0f4c81;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.back {
+  color: #dbefff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #0f4c81;
+}

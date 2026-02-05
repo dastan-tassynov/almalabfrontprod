@@ -1,0 +1,14 @@
+<div class="pdf-page">
+
+  <div *ngIf="loading" class="loading">
+    Загрузка PDF...
+  </div>
+
+  <ngx-extended-pdf-viewer
+    *ngIf="!loading"
+    [src]="pdfSrc"
+    useBrowserLocale="true"
+    height="100vh">
+  </ngx-extended-pdf-viewer>
+
+</div>

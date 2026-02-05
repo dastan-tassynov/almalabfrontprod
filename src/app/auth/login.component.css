@@ -1,0 +1,16 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-card {
+  width: 360px;
+  text-align: center;
+}
+
+.error {
+  color: var(--danger);
+  margin-top: 10px;
+}
