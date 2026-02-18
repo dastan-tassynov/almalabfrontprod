@@ -24,7 +24,7 @@ export class PdfViewerComponent {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.docs.getPdf(id).subscribe(blob => {
+    this.docs.getDocx(id).subscribe(blob => {
       this.pdfSrc = blob;   // ✅ ВАЖНО
       this.loading = false;
     });

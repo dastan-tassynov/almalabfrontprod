@@ -38,17 +38,18 @@ export class DocumentService {
 
   returnForFix(id: number, comment: string) {
     return this.http.post(
-      `/${id}/return`,
+      `${this.api}/${id}/return`,
       { comment }
     );
   }
 
-  getPdf(id: number) {
+  getDocx(id: number) {
     return this.http.get(
       `${this.api}/${id}/file`,
       { responseType: 'blob' }
     );
   }
+
 
   reupload(id: number, file: File) {
     const form = new FormData();
@@ -60,22 +61,26 @@ export class DocumentService {
     );
   }
 
-  getDocumentsByRole(role: 'USER' | 'ADMIN' | 'SUPERADMIN') {
+  // getDocumentsByRole(role: string) {
+  //   const token = localStorage.getItem('token');
+  //   const headers = { 'Authorization': `Bearer ${token}` };
+  //   const url = role === 'USER' ? `${this.api}/my` : `${this.api}/inbox`;
+  //
+  //   return this.http.get<any[]>(url, { headers }); // Передаем хедеры напрямую
+  // }
+
+  getDocumentsByRole(role: string) {
+    let endpoint = '';
+
+    // Проверяем роль и выбираем правильный путь
     if (role === 'ADMIN') {
-      return this.http.get<TemplateDocument[]>(
-        `${this.api}/inbox-admin`
-      );
+      endpoint = '/inbox-admin';
+    } else if (role === 'SUPERADMIN') {
+      endpoint = '/inbox-super';
+    } else {
+      endpoint = '/my'; // Для обычного юзера
     }
 
-    if (role === 'SUPERADMIN') {
-      return this.http.get<TemplateDocument[]>(
-        `${this.api}/inbox-super`
-      );
-    }
-
-    return this.http.get<TemplateDocument[]>(
-      `${this.api}/my`
-    );
+    return this.http.get<any[]>(`${this.api}${endpoint}`);
   }
-
 }

@@ -27,15 +27,17 @@ export class RegisterComponent {
   ) {}
 
   register() {
-    this.http.post<any>('/register', this.form).subscribe({
+    // Добавляем правильный URL: http://localhost:9090/auth/register
+    this.http.post<any>('http://localhost:9090/auth/register', this.form).subscribe({
       next: res => {
-        // автологин
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('role', res.role);
+        // Сохраняем данные (проверьте, что бэкенд возвращает token и role)
+        if (res.token) localStorage.setItem('token', res.token);
+        if (res.role) localStorage.setItem('role', res.role);
         this.router.navigate(['/documents']);
       },
       error: err => {
-        this.error = 'Ошибка регистрации';
+        console.error(err);
+        this.error = 'Ошибка регистрации: проверьте соединение с бэкендом';
       }
     });
   }
