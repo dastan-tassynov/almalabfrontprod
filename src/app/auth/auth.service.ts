@@ -10,7 +10,7 @@ export type Role = 'USER' | 'ADMIN' | 'SUPERADMIN';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private api = 'http://6tvo9dk0f.localto.net:4937';
+  private api = 'https://f14liow5n.localto.net';
 
   private roleSubject = new BehaviorSubject<string>('USER');
   role$ = this.roleSubject.asObservable();
