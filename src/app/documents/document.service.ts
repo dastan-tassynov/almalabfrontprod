@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
 
-  private api = 'http://185.125.46.74:9090/templates';
+  private api = 'https://used-column.gl.joinmc.link/templates';
 
   constructor(private http: HttpClient) {}
 
