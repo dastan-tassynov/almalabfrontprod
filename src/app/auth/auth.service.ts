@@ -10,7 +10,7 @@ export type Role = 'USER' | 'ADMIN' | 'SUPERADMIN';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private api = 'https://used-column.gl.joinmc.link/auth';
+  private api = 'http://6tvo9dk0f.localto.net:4937';
 
   private roleSubject = new BehaviorSubject<string>('USER');
   role$ = this.roleSubject.asObservable();

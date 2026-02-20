@@ -28,7 +28,7 @@ export class RegisterComponent {
 
   register() {
     // Добавляем правильный URL: http://localhost:9090/auth/register
-    this.http.post<any>('https://used-column.gl.joinmc.link/auth/register', this.form).subscribe({
+    this.http.post<any>('http://6tvo9dk0f.localto.net:4937/auth/register', this.form).subscribe({
       next: res => {
         // Сохраняем данные (проверьте, что бэкенд возвращает token и role)
         if (res.token) localStorage.setItem('token', res.token);
