@@ -10,7 +10,7 @@ export type Role = 'USER' | 'ADMIN' | 'SUPERADMIN';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private api = 'https://f14liow5n.localto.net/auth';
+  private api = 'https://i6hdfhyxmg62.share.zrok.io/auth';
 
   private roleSubject = new BehaviorSubject<string>('USER');
   role$ = this.roleSubject.asObservable();
@@ -28,12 +28,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-
-    const headers = new HttpHeaders({
-      'bypass-tunnel-reminder': 'true', // для некоторых туннелей
-      'localto-skip-warning': 'true'    // специфично для Localto
-    });
-    return this.http.post<any>(`${this.api}/login`, { username, password }, {headers})
+    return this.http.post<any>(`${this.api}/login`, { username, password })
       .pipe(
         tap(res => {
           this.saveToken(res.token);
@@ -44,11 +39,7 @@ export class AuthService {
   }
 
   register(data: { username: string; password: string; fullName: string; }) {
-    const headers = new HttpHeaders({
-      'bypass-tunnel-reminder': 'true', // для некоторых туннелей
-      'localto-skip-warning': 'true'    // специфично для Localto
-    });
-    return this.http.post<any>(`${this.api}/register`, data, {headers})
+    return this.http.post<any>(`${this.api}/register`, data)
       .pipe(
         tap(res => {
           this.saveToken(res.token);
