@@ -1,5 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
@@ -28,7 +28,12 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${this.api}/login`, { username, password })
+
+    const headers = new HttpHeaders({
+      'bypass-tunnel-reminder': 'true', // для некоторых туннелей
+      'localto-skip-warning': 'true'    // специфично для Localto
+    });
+    return this.http.post<any>(`${this.api}/login`, { username, password }, {headers})
       .pipe(
         tap(res => {
           this.saveToken(res.token);
@@ -39,7 +44,11 @@ export class AuthService {
   }
 
   register(data: { username: string; password: string; fullName: string; }) {
-    return this.http.post<any>(`${this.api}/register`, data)
+    const headers = new HttpHeaders({
+      'bypass-tunnel-reminder': 'true', // для некоторых туннелей
+      'localto-skip-warning': 'true'    // специфично для Localto
+    });
+    return this.http.post<any>(`${this.api}/register`, data, {headers})
       .pipe(
         tap(res => {
           this.saveToken(res.token);
