@@ -77,8 +77,14 @@
 
         <div class="card-btns">
           <button class="btn btn-low" (click)="openDoc(d.id, d.filename)">Скачать</button>
+
           <ng-container *ngIf="role === 'ADMIN' && d.status === 'SENT_TO_ADMIN'">
             <button class="btn btn-high" (click)="adminSign(d.id)">Подписать</button>
+            <button class="btn btn-warn" (click)="openReturn(d)">Вернуть</button>
+          </ng-container>
+
+          <ng-container *ngIf="role === 'SUPER_ADMIN' && d.status === 'SENT_TO_SUPER'">
+            <button class="btn btn-high" (click)="superSign(d.id)">Утвердить</button>
             <button class="btn btn-warn" (click)="openReturn(d)">Вернуть</button>
           </ng-container>
         </div>
