@@ -22,7 +22,7 @@
 
       <div class="user-info">
   <span class="role-tag">
-    {{ role === 'ADMIN' ? 'Администратор' : (role === 'SUPER_ADMIN' ? 'Директор' : 'Сотрудник') }}
+    {{ role === 'ADMIN' ? 'Администратор' : (role === 'SUPERADMIN' ? 'Директор' : 'Сотрудник') }}
   </span>
         <button class="exit-btn" (click)="logout()">Выйти</button>
       </div>
@@ -85,7 +85,7 @@
             <button class="btn btn-warn" (click)="openReturn(d)">Вернуть</button>
           </ng-container>
 
-          <ng-container *ngIf="role === 'SUPER_ADMIN' && d.status === 'SENT_TO_SUPER'">
+          <ng-container *ngIf="role === 'SUPER_ADMIN' && d.status === 'SENT_TO_SUPERADMIN'">
             <button class="btn btn-high" (click)="superSign(d.id)">Утвердить</button>
             <button class="btn btn-warn" (click)="openReturn(d)">Вернуть</button>
           </ng-container>
