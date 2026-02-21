@@ -21,7 +21,9 @@
       </div>
 
       <div class="user-info">
-        <span class="role-tag">{{ role === 'ADMIN' ? 'Администратор' : 'Сотрудник' }}</span>
+  <span class="role-tag">
+    {{ role === 'ADMIN' ? 'Администратор' : (role === 'SUPER_ADMIN' ? 'Директор' : 'Сотрудник') }}
+  </span>
         <button class="exit-btn" (click)="logout()">Выйти</button>
       </div>
     </div>
