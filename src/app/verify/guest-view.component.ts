@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentService } from '../documents/document.service';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './guest-view.component.html',
-  styleUrls: ['./guest-view.component.css'] // Не забудь добавить стили
+  styleUrls: ['./guest-view.component.css']
 })
 export class GuestViewComponent implements OnInit {
   docs: any[] = [];
@@ -17,12 +17,15 @@ export class GuestViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private docService: DocumentService,
-    public router: Router
+    public router: Router,
+    private cdr: ChangeDetectorRef // Добавлено для обновления экрана
   ) {}
 
   ngOnInit() {
-    // Получаем название организации из URL
-    this.orgName = this.route.snapshot.paramMap.get('orgName') || '';
+    // Декодируем название организации, чтобы убрать %20 и прочее
+    const rawOrg = this.route.snapshot.paramMap.get('orgName') || '';
+    this.orgName = decodeURIComponent(rawOrg);
+
     if (this.orgName) {
       this.loadDocs();
     }
@@ -31,13 +34,17 @@ export class GuestViewComponent implements OnInit {
   loadDocs() {
     this.docService.getDocsByOrg(this.orgName).subscribe({
       next: (data) => {
+        console.log('Полученные данные:', data);
         this.docs = data;
+        // Принудительно уведомляем Angular, что данные изменились
+        this.cdr.detectChanges();
       },
-      error: (err) => console.error('Ошибка загрузки документов организации', err)
+      error: (err) => {
+        console.error('Ошибка загрузки документов организации', err);
+      }
     });
   }
 
-  // Переход на страницу верификации (ту, что мы делали раньше)
   viewDetails(id: number) {
     this.router.navigate(['/verify', id]);
   }

@@ -4,21 +4,23 @@
     <button class="btn-back" (click)="router.navigate(['/login'])">Назад к логину</button>
   </header>
 
-  <div class="doc-grid" *ngIf="docs.length > 0; else emptyState">
+  <div class="doc-grid" *ngIf="docs && docs.length > 0; else emptyState">
     <div class="doc-card" *ngFor="let doc of docs">
       <div class="doc-header">
         <span class="category-tag">{{ doc.category || 'Без категории' }}</span>
         <span class="doc-id">#{{ doc.id }}</span>
       </div>
       <div class="doc-body">
-        <h3>{{ doc.filename }}</h3>
-        <p class="date">Загружен: {{ doc.createdAt | date:'dd.MM.yyyy' }}</p>
+        <h3>{{ doc.filename || doc.fileName || 'Без названия' }}</h3>
+        <p class="date">Загружен: {{ doc.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
       </div>
       <div class="doc-footer">
-        <button class="verify-btn" (click)="viewDetails(doc.id)">Проверить подписи</button>
-        <button class="download-btn" (click)="downloadDoc(doc.id, doc.filename)">
-          <i class="download-icon"></i> Скачать
-        </button>
+        <div class="action-buttons" style="display: flex; gap: 10px;">
+          <button class="verify-btn" (click)="viewDetails(doc.id)" style="flex: 1;">Проверить</button>
+          <button class="download-btn" (click)="downloadDoc(doc.id, doc.filename || doc.fileName)" style="flex: 1;">
+            Скачать
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +28,7 @@
   <ng-template #emptyState>
     <div class="empty-msg">
       <p>Для организации "{{ orgName }}" документов не найдено.</p>
+      <small>Проверьте правильность написания названия или наличие загруженных файлов.</small>
     </div>
   </ng-template>
 </div>
