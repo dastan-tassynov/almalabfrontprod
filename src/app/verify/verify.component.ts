@@ -1,40 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentService } from '../documents/document.service'; // Проверь путь к сервису
-import { CommonModule, DatePipe } from '@angular/common';
+import { DocumentService } from '../documents/document.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-verify',
   standalone: true,
-  imports: [CommonModule, DatePipe],
+  imports: [CommonModule],
   templateUrl: './verify.component.html',
   styleUrls: ['./verify.component.css']
 })
 export class VerifyComponent implements OnInit {
   docInfo: any = null;
-  loading: boolean = true;
-  error: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private docService: DocumentService
+    private docService: DocumentService,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    // Берем ID из ссылки: /verify/6
+  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-
     if (id) {
-      // Вызываем бэкенд ( VerifyController )
       this.docService.getPublicVerifyInfo(id).subscribe({
         next: (data) => {
           this.docInfo = data;
-          this.loading = false;
+          this.cdr.detectChanges(); // Форсируем обновление экрана
         },
         error: (err) => {
-          console.error(err);
-          this.error = true;
-          this.loading = false;
+          console.error('Ошибка загрузки:', err);
+          this.docInfo = null;
+          this.cdr.detectChanges();
         }
       });
     }

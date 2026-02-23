@@ -1,5 +1,5 @@
 <div class="verify-wrapper">
-  <div class="verify-card" *ngIf="docInfo; else notFound">
+  <div class="verify-card" *ngIf="docInfo; else errorBlock">
     <div class="status-header success">
       <div class="icon-circle">✓</div>
       <h1>Документ подтвержден</h1>
@@ -15,6 +15,10 @@
         <span class="label">ID системы:</span>
         <span class="value">#{{ docInfo.id }}</span>
       </div>
+      <div class="detail-row">
+        <span class="label">Статус:</span>
+        <span class="value">{{ docInfo.status }}</span>
+      </div>
     </div>
 
     <div class="signature-timeline">
@@ -24,7 +28,7 @@
         <div class="dot green"></div>
         <div class="time-content">
           <p class="signer">{{ docInfo.author }}</p>
-          <p class="action">Загрузка и первичная подпись</p>
+          <p class="action">Загрузка документа</p>
           <p class="timestamp">{{ docInfo.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
         </div>
       </div>
@@ -33,18 +37,20 @@
         <div class="dot blue"></div>
         <div class="time-content">
           <p class="signer">{{ sig.signerFullName }}</p>
-          <p class="action">Утверждено в системе</p>
+          <p class="action">Утверждено ({{ sig.signerRole }})</p>
           <p class="timestamp">{{ sig.signedAt | date:'dd.MM.yyyy HH:mm' }}</p>
         </div>
       </div>
     </div>
-  </div> <ng-template #notFound>
-  <div class="verify-card error">
-    <div class="status-header fail">
-      <div class="icon-circle">!</div>
-      <h1>Ошибка проверки</h1>
-      <p>Документ не найден в базе данных или был удален.</p>
-    </div>
   </div>
-</ng-template>
+
+  <ng-template #errorBlock>
+    <div class="verify-card error-card">
+      <div class="status-header fail">
+        <div class="icon-circle">!</div>
+        <h1>Ошибка проверки</h1>
+        <p>Документ не найден или еще загружается...</p>
+      </div>
+    </div>
+  </ng-template>
 </div>
