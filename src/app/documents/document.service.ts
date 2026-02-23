@@ -92,4 +92,17 @@ export class DocumentService {
     // Вызываем наш новый эндпоинт
     return this.http.get<any[]>(`https://tissue-story-illustrations-defined.trycloudflare.com/api/public/verify/organization/${orgName}`);
   }
+
+  downloadGuestFile(id: number, filename: string) {
+    this.http.get(`https://tissue-story-illustrations-defined.trycloudflare.com/api/public/verify/download/${id}`, {
+      responseType: 'blob'
+    }).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
 }

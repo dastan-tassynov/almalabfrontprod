@@ -16,6 +16,9 @@
       </div>
       <div class="doc-footer">
         <button class="verify-btn" (click)="viewDetails(doc.id)">Проверить подписи</button>
+        <button class="download-btn" (click)="downloadDoc(doc.id, doc.filename)">
+          <i class="download-icon"></i> Скачать
+        </button>
       </div>
     </div>
   </div>

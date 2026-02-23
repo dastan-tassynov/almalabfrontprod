@@ -132,3 +132,30 @@ header h1 span {
   border-radius: 12px;
   color: #6c757d;
 }
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.verify-btn {
+  flex: 1;
+  background: #2ecc71;
+  /* твои старые стили */
+}
+
+.download-btn {
+  flex: 1;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.download-btn:hover {
+  background: #2980b9;
+}

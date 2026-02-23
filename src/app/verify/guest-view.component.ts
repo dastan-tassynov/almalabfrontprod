@@ -41,4 +41,8 @@ export class GuestViewComponent implements OnInit {
   viewDetails(id: number) {
     this.router.navigate(['/verify', id]);
   }
+
+  downloadDoc(id: number, filename: string) {
+    this.docService.downloadGuestFile(id, filename);
+  }
 }
