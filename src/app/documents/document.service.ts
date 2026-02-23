@@ -51,15 +51,6 @@ export class DocumentService {
   }
 
 
-  reupload(id: number, file: File) {
-    const form = new FormData();
-    form.append('file', file);
-
-    return this.http.post<TemplateDocument>(
-      `${this.api}/${id}/return`,
-      form
-    );
-  }
 
   // getDocumentsByRole(role: string) {
   //   const token = localStorage.getItem('token');
@@ -82,5 +73,12 @@ export class DocumentService {
     }
 
     return this.http.get<any[]>(`${this.api}${endpoint}`);
+  }
+
+  reupload(id: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    // Используем новый эндпоинт /reupload
+    return this.http.post(`${this.api}/${id}/reupload`, formData);
   }
 }
