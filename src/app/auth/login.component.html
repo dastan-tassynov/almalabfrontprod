@@ -1,49 +1,50 @@
 <div class="auth-page">
-  <form class="auth-card" (ngSubmit)="login()">
+  <div class="auth-card">
+    <form (ngSubmit)="login()">
+      <h2>Alma Lab</h2>
 
-    <h2>Alma Lab</h2>
+      <input type="text"
+             placeholder="Логин"
+             [(ngModel)]="form.username"
+             name="username"
+             required>
 
-    <input type="text"
-           placeholder="Логин"
-           [(ngModel)]="form.username"
-           name="username"
-           required>
+      <input type="password"
+             placeholder="Пароль"
+             [(ngModel)]="form.password"
+             name="password"
+             required>
 
-    <input type="password"
-           placeholder="Пароль"
-           [(ngModel)]="form.password"
-           name="password"
-           required>
+      <button type="submit" class="login-btn">Войти</button>
 
-    <button type="submit">Войти</button>
+      <p class="link" *ngIf="false">
+        <a routerLink="/register">Регистрация нового пользователя</a>
+      </p>
 
-    <p class="link">
-      <a routerLink="/register">Регистрация нового пользователя</a>
-    </p>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
 
-    <p class="error" *ngIf="error">{{ error }}</p>
+    <div class="guest-login-container">
+      <div class="divider">
+        <span>ИЛИ</span>
+      </div>
 
-  </form>
+      <div class="guest-form">
+        <h3>Просмотр документов</h3>
+        <p class="subtitle">Введите название организации</p>
 
-  <div class="guest-login-container">
-    <div class="divider">
-      <span>ИЛИ</span>
-    </div>
-
-    <div class="guest-form">
-      <h3>Просмотр документов организации</h3>
-      <p class="subtitle">Введите название компании для гостевого доступа</p>
-
-      <div class="input-group">
-        <input
-          type="text"
-          [(ngModel)]="guestOrgName"
-          placeholder="Например: ИП Айсберг"
-          (keyup.enter)="onGuestLogin()"
-        >
-        <button class="guest-btn" (click)="onGuestLogin()">
-          Войти как гость
-        </button>
+        <div class="input-group">
+          <input
+            type="text"
+            [(ngModel)]="guestOrgName"
+            name="guestOrg"
+            placeholder="Например: ИП Айсберг"
+            (keyup.enter)="onGuestLogin()"
+          >
+          <button type="button" class="guest-btn" (click)="onGuestLogin()">
+            Войти как гость
+          </button>
+        </div>
       </div>
     </div>
   </div>
