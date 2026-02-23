@@ -10,7 +10,7 @@ export type Role = 'USER' | 'ADMIN' | 'SUPERADMIN';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private api = 'http://bore.pub:8862/auth';
+  private api = 'https://tissue-story-illustrations-defined.trycloudflare.com/auth';
 
   private roleSubject = new BehaviorSubject<string>('USER');
   role$ = this.roleSubject.asObservable();

@@ -99,6 +99,29 @@
             <input type="file" hidden (change)="onReupload(d.id, $event)">
           </label>
         </div>
+
+        <div class="modal-backdrop" *ngIf="returnDoc">
+          <div class="modal-window">
+            <h3>🔙 Возврат на доработку</h3>
+            <p>Документ: <strong>{{ returnDoc.filename }}</strong></p>
+
+            <label>Причина возврата (замечание):</label>
+            <textarea
+              [(ngModel)]="returnComment"
+              class="form-control"
+              placeholder="Например: Не хватает подписи в 3-м пункте или ошибка в дате...">
+            </textarea>
+
+            <div class="modal-btns">
+              <button class="btn btn-low" (click)="closeReturn()">Отмена</button>
+              <button class="btn btn-warn"
+                      [disabled]="!returnComment || returnComment.length < 3"
+                      (click)="confirmReturn()">
+                Вернуть сотруднику
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>

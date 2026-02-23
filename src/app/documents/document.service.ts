@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
 
-  private api = 'http://bore.pub:8862/templates';
+  private api = 'https://tissue-story-illustrations-defined.trycloudflare.com/templates';
 
   constructor(private http: HttpClient) {}
 
