@@ -1,0 +1,51 @@
+<div class="verify-wrapper">
+  <div class="verify-card" *ngIf="docInfo; else notFound">
+    <div class="status-header success">
+      <div class="icon-circle">✓</div>
+      <h1>Документ подтвержден</h1>
+      <p class="org-name">AlmaLab Medical Systems</p>
+    </div>
+
+    <div class="doc-details">
+      <div class="detail-row">
+        <span class="label">Файл:</span>
+        <span class="value">{{ docInfo.filename }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">ID системы:</span>
+        <span class="value">#{{ docInfo.id }}</span>
+      </div>
+    </div>
+
+    <div class="signature-timeline">
+      <h3>История подписей</h3>
+
+      <div class="timeline-item">
+        <div class="dot green"></div>
+        <div class="time-content">
+          <p class="signer">{{ docInfo.author }}</p>
+          <p class="action">Загрузка и первичная подпись</p>
+          <p class="timestamp">{{ docInfo.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" *ngFor="let sig of docInfo.signatures">
+        <div class="dot blue"></div>
+        <div class="time-content">
+          <p class="signer">{{ sig.signerFullName }}</p>
+          <p class="action">Утверждено в системе</p>
+          <p class="timestamp">{{ sig.signedAt | date:'dd.MM.yyyy HH:mm' }}</p>
+        </div>
+      </div>
+    </div>
+
+  <ng-template #notFound>
+    <div class="verify-card error">
+      <div class="status-header fail">
+        <div class="icon-circle">!</div>
+        <h1>Ошибка проверки</h1>
+        <p>Документ не найден в базе данных или был удален.</p>
+      </div>
+    </div>
+  </ng-template>
+</div>

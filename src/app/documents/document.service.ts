@@ -81,4 +81,9 @@ export class DocumentService {
     // Используем новый эндпоинт /reupload
     return this.http.post(`${this.api}/${id}/reupload`, formData);
   }
+
+  getPublicVerifyInfo(id: string | number) {
+    // Обрати внимание на путь, он должен совпадать с Java (VerifyController)
+    return this.http.get(`https://tissue-story-illustrations-defined.trycloudflare.com/api/public/verify/${id}`);
+  }
 }

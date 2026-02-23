@@ -1,0 +1,90 @@
+.verify-wrapper {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.verify-card {
+  background: white;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.status-header {
+  padding: 30px 20px;
+  text-align: center;
+  color: white;
+}
+
+.status-header.success { background: linear-gradient(135deg, #28a745, #20c997); }
+.status-header.fail { background: linear-gradient(135deg, #dc3545, #f86c6b); }
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+h1 { font-size: 22px; margin: 0; }
+.org-name { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+
+.doc-details {
+  padding: 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.label { color: #6c757d; font-size: 14px; }
+.value { font-weight: 600; color: #343a40; font-size: 14px; text-align: right; }
+
+.signature-timeline { padding: 20px; }
+h3 { font-size: 16px; color: #495057; margin-bottom: 20px; }
+
+.timeline-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.dot.green { background: #28a745; box-shadow: 0 0 0 4px rgba(40,167,69,0.2); }
+.dot.blue { background: #007bff; box-shadow: 0 0 0 4px rgba(0,123,255,0.2); }
+
+.signer { font-weight: 600; margin: 0; font-size: 15px; }
+.action { margin: 2px 0; color: #6c757d; font-size: 13px; }
+.timestamp { color: #adb5bd; font-size: 12px; }
+
+.footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 11px;
+  color: #adb5bd;
+  background: #fdfdfd;
+}

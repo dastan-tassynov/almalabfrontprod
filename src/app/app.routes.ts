@@ -5,8 +5,10 @@ import { DocumentsComponent } from './documents/documents.component';
 import { MainLayoutComponent } from './layout/main-layout.component';
 import { authGuard } from './auth/auth.guard';
 import {PdfViewerComponent} from './documents/pdf-viewer.component';
+import {VerifyComponent} from './verify/verify.component';
 
 export const appRoutes: Routes = [
+  { path: 'verify/:id', component: VerifyComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
