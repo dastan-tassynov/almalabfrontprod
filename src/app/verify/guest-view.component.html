@@ -1,0 +1,28 @@
+<div class="guest-container">
+  <header>
+    <h1>Документы организации: <span>{{ orgName }}</span></h1>
+    <button class="btn-back" (click)="router.navigate(['/login'])">Назад к логину</button>
+  </header>
+
+  <div class="doc-grid" *ngIf="docs.length > 0; else emptyState">
+    <div class="doc-card" *ngFor="let doc of docs">
+      <div class="doc-header">
+        <span class="category-tag">{{ doc.category || 'Без категории' }}</span>
+        <span class="doc-id">#{{ doc.id }}</span>
+      </div>
+      <div class="doc-body">
+        <h3>{{ doc.filename }}</h3>
+        <p class="date">Загружен: {{ doc.createdAt | date:'dd.MM.yyyy' }}</p>
+      </div>
+      <div class="doc-footer">
+        <button class="verify-btn" (click)="viewDetails(doc.id)">Проверить подписи</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-msg">
+      <p>Для организации "{{ orgName }}" документов не найдено.</p>
+    </div>
+  </ng-template>
+</div>

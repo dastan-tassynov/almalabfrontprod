@@ -1,0 +1,134 @@
+/* Основной контейнер */
+.guest-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Шапка страницы */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 20px;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+header h1 span {
+  color: #3498db; /* Выделяем название организации цветом */
+}
+
+.btn-back {
+  background: transparent;
+  border: 1px solid #ced4da;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+/* Сетка карточек */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Сама карточка */
+.doc-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e6ed;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.doc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+/* Хедер карточки (Теги) */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.category-tag {
+  background: #e8f4fd;
+  color: #2980b9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.doc-id {
+  font-size: 12px;
+  color: #95a5a6;
+}
+
+/* Тело карточки */
+.doc-body h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.date {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+/* Футер карточки и кнопка */
+.doc-footer {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.verify-btn {
+  width: 100%;
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.verify-btn:hover {
+  background: #27ae60;
+}
+
+/* Состояние, когда пусто */
+.empty-msg {
+  text-align: center;
+  padding: 60px;
+  background: #fdfdfe;
+  border: 2px dashed #dee2e6;
+  border-radius: 12px;
+  color: #6c757d;
+}

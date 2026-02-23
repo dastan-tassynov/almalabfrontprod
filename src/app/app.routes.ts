@@ -6,9 +6,11 @@ import { MainLayoutComponent } from './layout/main-layout.component';
 import { authGuard } from './auth/auth.guard';
 import {PdfViewerComponent} from './documents/pdf-viewer.component';
 import {VerifyComponent} from './verify/verify.component';
+import {GuestViewComponent} from './verify/guest-view.component';
 
 export const appRoutes: Routes = [
   { path: 'verify/:id', component: VerifyComponent },
+  { path: 'guest/:orgName', component: GuestViewComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

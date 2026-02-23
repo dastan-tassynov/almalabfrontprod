@@ -211,8 +211,23 @@ export class DocumentsComponent implements OnInit {
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
-      const category = prompt('Введите категорию документа:', 'Общее') || 'Общее';
-      this.docService.upload(file, category).subscribe(() => this.loadDocuments(this.role));
+      // 1. Спрашиваем категорию
+      const category = prompt('Введите категорию документа (например, Вода):', 'Общее') || 'Общее';
+
+      // 2. Спрашиваем название организации
+      const organization = prompt('Введите название организации (например, ИП Айсберг):', 'AlmaLab') || 'AlmaLab';
+
+      // 3. Отправляем в сервис три параметра
+      this.docService.upload(file, category, organization).subscribe({
+        next: () => {
+          alert('Файл успешно загружен!');
+          this.loadDocuments(this.role);
+        },
+        error: (err) => {
+          console.error('Ошибка загрузки:', err);
+          alert('Произошла ошибка при загрузке файла');
+        }
+      });
     }
   }
 

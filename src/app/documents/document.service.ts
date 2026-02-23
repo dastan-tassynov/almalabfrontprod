@@ -20,12 +20,13 @@ export class DocumentService {
   //   return this.http.post(`${this.api}/upload`, form);
   // }
 
-  upload(file: File, category: string) {
-    const form = new FormData();
-    form.append('file', file);
-    form.append('category', category);
+  upload(file: File, category: string, organization: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('category', category);
+    formData.append('organization', organization); // Добавляем в запрос
 
-    return this.http.post(`${this.api}/upload`, form);
+    return this.http.post(`${this.api}/upload`, formData);
   }
 
   adminSign(id: number) {
@@ -85,5 +86,10 @@ export class DocumentService {
   getPublicVerifyInfo(id: string | number) {
     // Обрати внимание на путь, он должен совпадать с Java (VerifyController)
     return this.http.get(`https://tissue-story-illustrations-defined.trycloudflare.com/api/public/verify/${id}`);
+  }
+
+  getDocsByOrg(orgName: string): Observable<any[]> {
+    // Вызываем наш новый эндпоинт
+    return this.http.get<any[]>(`https://tissue-story-illustrations-defined.trycloudflare.com/api/public/verify/organization/${orgName}`);
   }
 }

@@ -41,4 +41,15 @@ export class LoginComponent {
         }
       });
   }
+
+  guestOrgName: string = '';
+
+  onGuestLogin() {
+    if (this.guestOrgName.trim()) {
+      // Переходим по адресу /guest/НазваниеОрганизации
+      this.router.navigate(['/guest', this.guestOrgName.trim()]);
+    } else {
+      alert('Введите название организации');
+    }
+  }
 }

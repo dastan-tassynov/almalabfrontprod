@@ -24,4 +24,27 @@
     <p class="error" *ngIf="error">{{ error }}</p>
 
   </form>
+
+  <div class="guest-login-container">
+    <div class="divider">
+      <span>ИЛИ</span>
+    </div>
+
+    <div class="guest-form">
+      <h3>Просмотр документов организации</h3>
+      <p class="subtitle">Введите название компании для гостевого доступа</p>
+
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="guestOrgName"
+          placeholder="Например: ИП Айсберг"
+          (keyup.enter)="onGuestLogin()"
+        >
+        <button class="guest-btn" (click)="onGuestLogin()">
+          Войти как гость
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
