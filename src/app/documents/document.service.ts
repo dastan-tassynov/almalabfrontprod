@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class DocumentService {
 
-  private api = 'https://i6hdfhyxmg62.share.zrok.io/templates';
+  private api = 'http://bore.pub:8862/templates';
 
   constructor(private http: HttpClient) {}
 
