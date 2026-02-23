@@ -88,3 +88,30 @@ input {
 .guest-btn:hover {
   background-color: #dee2e6;
 }
+
+.secret-link {
+  margin-top: 15px;
+  text-align: center;
+  /* Делаем полностью невидимым */
+  opacity: 0;
+  /* Плавный переход появления (0.3 секунды) */
+  transition: opacity 0.3s ease;
+  cursor: default;
+}
+
+.secret-link:hover {
+  /* Проявляем при наведении */
+  opacity: 1;
+  cursor: pointer;
+}
+
+.secret-link a {
+  color: #94a3b8; /* Неброский серый цвет */
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.secret-link a:hover {
+  color: #2563eb; /* Синеет только когда на него навели напрямую */
+  text-decoration: underline;
+}
