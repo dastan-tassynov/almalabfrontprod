@@ -21,34 +21,39 @@
       </div>
     </div>
 
-    <div class="signature-timeline" *ngIf="docInfo && docInfo.signatures">
+    <div class="signature-timeline" *ngIf="docInfo">
       <h3>История подписей</h3>
 
-      <ng-container *ngFor="let sig of docInfo.signatures; let i = index">
+      <div class="timeline-item">
+        <div class="dot green"></div>
+        <div class="time-content">
+          <p class="signer">
+            <span class="role-label">Специалист</span>
+            <strong> {{ docInfo.author }}</strong>
+          </p>
+          <p class="action">Подписано</p>
+          <p class="timestamp">{{ docInfo.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
+        </div>
+      </div>
 
-        <div class="timeline-item" *ngIf="sig.signerFullName || sig.fullName">
-
-          <div class="dot" [ngClass]="i === 0 ? 'green' : 'blue'"></div>
-
+      <ng-container *ngFor="let sig of docInfo.signatures">
+        <div class="timeline-item" *ngIf="sig.signerFullName">
+          <div class="dot blue"></div>
           <div class="time-content">
             <p class="signer">
           <span class="role-label">
-            <ng-container [ngSwitch]="sig.signerRole || sig.role">
-              <span *ngSwitchCase="'USER'">Специалист</span>
+            <ng-container [ngSwitch]="sig.signerRole">
               <span *ngSwitchCase="'ADMIN'">Заведующая лабораторией</span>
               <span *ngSwitchCase="'SUPERADMIN'">Руководитель организации</span>
               <span *ngSwitchDefault>Сотрудник</span>
             </ng-container>
           </span>
-
-              <strong> {{ sig.signerFullName || sig.fullName }}</strong>
+              <strong> {{ sig.signerFullName }}</strong>
             </p>
-
             <p class="action">Подписано</p>
-            <p class="timestamp">{{ (sig.signedAt || sig.createdAt) | date:'dd.MM.yyyy HH:mm' }}</p>
+            <p class="timestamp">{{ sig.signedAt | date:'dd.MM.yyyy HH:mm' }}</p>
           </div>
         </div>
-
       </ng-container>
     </div>
   </div>
