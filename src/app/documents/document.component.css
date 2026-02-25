@@ -132,3 +132,56 @@
   color: #94a3b8;
   margin-top: 4px;
 }
+
+.mini-setup-panel {
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #cbd5e1;
+  max-width: 100%; /* Занимает всю ширину кнопки загрузки */
+}
+
+.setup-form-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap; /* Для мобильных устройств */
+}
+
+.compact-input, .compact-select {
+  padding: 8px 12px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.error-border {
+  border: 2px solid #ef4444 !important;
+}
+
+.btn-submit-small {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.error-msg {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: bold;
+}
