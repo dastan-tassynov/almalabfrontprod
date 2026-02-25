@@ -27,6 +27,7 @@ export class DocumentsComponent implements OnInit {
   selectedFile: File | null = null;
   organization: string = '';
   showUploadModal: boolean = false; // Управляет видимостью окна
+  attemptPublish: boolean = false;
 
   currentFilter: string = 'Все';
   docCategories: string[] = [
@@ -263,48 +264,39 @@ export class DocumentsComponent implements OnInit {
 
 // Метод, который вызовется, когда админ нажмет "Опубликовать" в модальном окне
   confirmAndUpload() {
-    // 1. Проверка на наличие файла
-    if (!this.selectedFile) {
-      alert('Файл не выбран!');
-      return;
-    }
+    this.attemptPublish = true;
 
-    // 2. ЖЕСТКАЯ ПРОВЕРКА НАЗВАНИЯ ОРГАНИЗАЦИИ
+    // 1. Проверка организации (для админа)
     if (this.role === 'ADMIN' && (!this.targetOrgName || this.targetOrgName.trim() === '')) {
-      alert('Ошибка: Вы не заполнили название организации! Загрузка прервана.');
-      return; // ПРЕРЫВАЕМ ВЫПОЛНЕНИЕ
+      alert('Загрузка прервана: Не заполнено название организации!');
+      return; // Дальше код не пойдет, файл НЕ загрузится
     }
 
-    // 3. Проверка категории
+    // 2. Проверка категории
     if (!this.selectedCategory) {
-      alert('Выберите категорию документа!');
+      alert('Пожалуйста, выберите категорию документа.');
       return;
     }
 
-    // Если проверки пройдены, отправляем на сервер
-    this.docService.upload(
-      this.selectedFile,
-      this.selectedCategory,
-      this.targetOrgName.trim()
-    ).subscribe({
+    // Если всё заполнено — только тогда вызываем сервис
+    this.docService.upload(this.selectedFile!, this.selectedCategory, this.targetOrgName).subscribe({
       next: () => {
-        alert('Файл успешно загружен!');
+        alert('Успешно опубликовано');
         this.showUploadModal = false;
         this.resetUploadForm();
         this.loadDocuments(this.role);
       },
-      error: (err) => {
-        console.error(err);
-        alert('Ошибка при сохранении в базу данных');
-      }
+      error: () => alert('Ошибка при передаче данных в базу')
     });
   }
 
   resetUploadForm() {
     this.selectedFile = null;
-    this.selectedCategory = '';
     this.targetOrgName = '';
+    this.selectedCategory = '';
+    this.attemptPublish = false;
   }
+
 
   trackById(index: number, item: any) { return item.id; }
 

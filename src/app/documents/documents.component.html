@@ -56,38 +56,38 @@
         <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
       </label>
 
-      <div *ngIf="showUploadModal" class="upload-setup-container">
-        <h3>⚙️ Настройка публикации</h3>
-
-        <div class="form-group" *ngIf="role === 'ADMIN'">
-          <label style="color: #d32f2f; font-weight: bold;">НАЗВАНИЕ ОРГАНИЗАЦИИ (ОБЯЗАТЕЛЬНО):</label>
-          <input
-            type="text"
-            [(ngModel)]="targetOrgName"
-            placeholder="Введите ТОО или ИП..."
-            class="admin-prompt-input"
-            [class.invalid-input]="!targetOrgName">
-          <small *ngIf="!targetOrgName" style="color: #d32f2f;">Поле не может быть пустым!</small>
+      <div *ngIf="showUploadModal" class="mini-setup-panel">
+        <div class="setup-header">
+          <i class="settings-icon">⚙️</i>
+          <span>Настройка: <strong>{{ selectedFile?.name }}</strong></span>
         </div>
 
-        <div class="form-group">
-          <label>КАТЕГОРИЯ ДОКУМЕНТА:</label>
-          <select [(ngModel)]="selectedCategory" class="admin-prompt-select">
-            <option value="" disabled selected>-- Выберите категорию --</option>
-            <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
-          </select>
+        <div class="setup-form-row">
+          <div class="input-group" *ngIf="role === 'ADMIN'">
+            <input
+              type="text"
+              [(ngModel)]="targetOrgName"
+              placeholder="Название организации (ТОО/ИП)"
+              class="compact-input"
+              [class.error-border]="!targetOrgName && attemptPublish">
+          </div>
+
+          <div class="input-group">
+            <select [(ngModel)]="selectedCategory" class="compact-select">
+              <option value="" disabled selected>Категория...</option>
+              <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="actions">
+            <button (click)="cancelUpload()" class="btn-text">Отмена</button>
+            <button (click)="confirmAndUpload()" class="btn-submit-small">Опубликовать</button>
+          </div>
         </div>
 
-        <div style="display: flex; gap: 10px;">
-          <button (click)="cancelUpload()" class="btn-cancel">Отмена</button>
-
-          <button
-            (click)="confirmAndUpload()"
-            [disabled]="!selectedCategory || (role === 'ADMIN' && !targetOrgName.trim())"
-            class="btn-publish">
-            Загрузить
-          </button>
-        </div>
+        <p *ngIf="!targetOrgName && attemptPublish && role === 'ADMIN'" class="error-msg">
+          ⚠️ Укажите название организации!
+        </p>
       </div>
     </div>
 
