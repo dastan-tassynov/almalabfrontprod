@@ -45,54 +45,48 @@
       </div>
     </div>
 
-    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-section-card">
+    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="dashboard-upload-container">
 
-      <label class="compact-upload" style="cursor: pointer;">
-        <span class="plus-icon">+</span>
-        <div class="upload-text">
-          <strong>Загрузить протокол</strong>
-          <span>Формат .docx</span>
-        </div>
-        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
-      </label>
+      <div class="upload-card-compact">
 
-      <div *ngIf="showUploadModal" class="mini-setup-panel">
-        <div class="setup-header" style="margin-bottom: 8px;">
-          <span style="font-size: 0.85rem; color: #475569;">Настройка для: <strong>{{ selectedFile?.name }}</strong></span>
-        </div>
-
-        <div class="setup-form-row" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-
-          <div class="input-container">
-            <input
-              type="text"
-              [(ngModel)]="targetOrgName"
-              placeholder="Название организации (ТОО/ИП)"
-              class="compact-input"
-              [class.invalid]="!targetOrgName && attemptPublish"
-              style="width: 220px; padding: 6px 10px; border-radius: 4px; border: 1px solid #94a3b8;">
+        <label class="compact-upload-trigger">
+          <span class="plus-icon">+</span>
+          <div class="upload-text">
+            <strong>Загрузить протокол</strong>
+            <span class="file-format">Формат .docx</span>
           </div>
+          <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
+        </label>
 
-          <div class="input-container">
-            <select [(ngModel)]="selectedCategory" class="compact-select"
-                    style="padding: 6px 10px; border-radius: 4px; border: 1px solid #94a3b8; background: white;">
-              <option value="" disabled selected>Категория...</option>
-              <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
-            </select>
-          </div>
+        <div *ngIf="showUploadModal" class="mini-setup-panel">
+          <div class="setup-form-content">
 
-          <div class="actions" style="display: flex; gap: 5px;">
-            <button (click)="cancelUpload()" class="btn-text" style="background: none; border: none; color: #64748b; cursor: pointer; font-size: 13px;">Отмена</button>
-            <button (click)="confirmAndUpload()" class="btn-submit-small"
-                    style="background: #22c55e; color: white; border: none; padding: 7px 15px; border-radius: 5px; font-weight: 600; cursor: pointer;">
-              Загрузить
-            </button>
+            <div class="form-field">
+              <label>Организация (ТОО/ИП):</label>
+              <input
+                type="text"
+                [(ngModel)]="targetOrgName"
+                placeholder="Введите название..."
+                class="compact-input"
+                [class.error-field]="!targetOrgName && attemptPublish">
+            </div>
+
+            <div class="form-field">
+              <label>Категория:</label>
+              <select [(ngModel)]="selectedCategory" class="compact-select">
+                <option value="" disabled selected>Выберите...</option>
+                <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
+              </select>
+            </div>
+
+            <div class="setup-actions">
+              <button (click)="cancelUpload()" class="btn-cancel-text">Отмена</button>
+              <button (click)="confirmAndUpload()" class="btn-confirm-small">Загрузить</button>
+            </div>
+
+            <p *ngIf="!targetOrgName && attemptPublish" class="error-text">⚠️ Введите организацию!</p>
           </div>
         </div>
-
-        <p *ngIf="!targetOrgName && attemptPublish" style="color: #ef4444; font-size: 11px; margin-top: 5px; font-weight: bold;">
-          ⚠️ Заполните название организации!
-        </p>
       </div>
     </div>
 

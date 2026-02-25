@@ -179,9 +179,117 @@
   font-size: 14px;
 }
 
-.error-msg {
-  color: #ef4444;
+/* Контейнер, чтобы кнопка не липла к краям и не тянулась */
+.dashboard-upload-container {
+  padding: 15px 0;
+  display: flex;
+  justify-content: flex-start; /* Кнопка будет слева. Хочешь по центру - ставь center */
+}
+
+.upload-card-compact {
+  width: 100%;
+  max-width: 400px; /* ВОТ ЗДЕСЬ регулируется компактность */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* Стили кнопки-триггера */
+.compact-upload-trigger {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: background 0.2s;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.compact-upload-trigger:hover {
+  background: #f8fafc;
+}
+
+.plus-icon {
+  font-size: 24px;
+  color: #3b82f6;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+.upload-text strong {
+  display: block;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.file-format {
   font-size: 12px;
-  margin-top: 5px;
+  color: #94a3b8;
+}
+
+/* Панель настройки под кнопкой */
+.mini-setup-panel {
+  padding: 15px;
+  background: #fdfdfd;
+  border-top: 1px solid #f1f5f9;
+}
+
+.form-field {
+  margin-bottom: 12px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.compact-input, .compact-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.error-field {
+  border-color: #ef4444 !important;
+  background: #fff1f2;
+}
+
+.setup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-confirm-small {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancel-text {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 8px;
   font-weight: bold;
 }
