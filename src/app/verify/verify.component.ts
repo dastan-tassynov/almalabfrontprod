@@ -24,14 +24,8 @@ export class VerifyComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.docService.getPublicVerifyInfo(id).subscribe({
-        next: (data: any) => { // Добавили : any здесь
-          if (data && data.signatures) {
-            // Фильтруем, оставляя только записи, где есть ФИО
-            data.signatures = data.signatures.filter((sig: any) =>
-              sig.signerFullName && sig.signerFullName.trim() !== ''
-            );
-          }
-          this.docInfo = data;
+        next: (data: any) => {
+          this.docInfo = data; // Просто сохраняем всё как есть
           this.cdr.detectChanges();
         },
         error: (err) => {
@@ -39,7 +33,7 @@ export class VerifyComponent implements OnInit {
           this.docInfo = null;
           this.cdr.detectChanges();
         }
-      }); // Закрыли subscribe
-    } // Закрыли if
-  } // Закрыли ngOnInit
+      });
+    }
+  }
 }

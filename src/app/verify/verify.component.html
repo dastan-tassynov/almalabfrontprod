@@ -21,25 +21,35 @@
       </div>
     </div>
 
-    <div class="signature-timeline">
+    <div class="signature-timeline" *ngIf="docInfo && docInfo.signatures">
       <h3>История подписей</h3>
 
-      <div *ngFor="let sig of docInfo.signatures; let i = index" class="timeline-item">
-        <div class="dot" [ngClass]="i === 0 ? 'green' : 'blue'"></div>
+      <ng-container *ngFor="let sig of docInfo.signatures; let i = index">
 
-        <div class="time-content">
-          <p class="signer">
-            <span *ngIf="sig.signerRole === 'USER'">Специалист </span>
-            <span *ngIf="sig.signerRole === 'ADMIN'">Заведующая лабораторией </span>
-            <span *ngIf="sig.signerRole === 'SUPERADMIN'">Руководитель организации </span>
+        <div class="timeline-item" *ngIf="sig.signerFullName || sig.fullName">
 
-            <strong>{{ sig.signerFullName }}</strong>
-          </p>
+          <div class="dot" [ngClass]="i === 0 ? 'green' : 'blue'"></div>
 
-          <p class="action">Подписано</p>
-          <p class="timestamp">{{ sig.signedAt | date:'dd.MM.yyyy HH:mm' }}</p>
+          <div class="time-content">
+            <p class="signer">
+          <span class="role-label">
+            <ng-container [ngSwitch]="sig.signerRole || sig.role">
+              <span *ngSwitchCase="'USER'">Специалист</span>
+              <span *ngSwitchCase="'ADMIN'">Заведующая лабораторией</span>
+              <span *ngSwitchCase="'SUPERADMIN'">Руководитель организации</span>
+              <span *ngSwitchDefault>Сотрудник</span>
+            </ng-container>
+          </span>
+
+              <strong> {{ sig.signerFullName || sig.fullName }}</strong>
+            </p>
+
+            <p class="action">Подписано</p>
+            <p class="timestamp">{{ (sig.signedAt || sig.createdAt) | date:'dd.MM.yyyy HH:mm' }}</p>
+          </div>
         </div>
-      </div>
+
+      </ng-container>
     </div>
   </div>
 
