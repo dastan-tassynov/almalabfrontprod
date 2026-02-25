@@ -281,8 +281,8 @@ export class DocumentsComponent implements OnInit {
     // Если всё заполнено, вызываем сервис
     this.docService.upload(
       this.selectedFile!,
-      this.targetOrgName.trim(),
-      this.selectedCategory
+      this.selectedCategory,
+      this.targetOrgName.trim()
     ).subscribe({
       next: () => {
         alert('Документ успешно опубликован для ' + this.targetOrgName);
