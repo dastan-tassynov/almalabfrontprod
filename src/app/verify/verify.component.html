@@ -28,7 +28,7 @@
         <div class="dot green"></div>
         <div class="time-content">
           <p class="signer">{{ docInfo.author }}</p>
-          <p class="action">Загрузка документа</p>
+          <p class="action">Подписано</p>
           <p class="timestamp">{{ docInfo.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="dot blue"></div>
         <div class="time-content">
           <p class="signer">{{ sig.signerFullName }}</p>
-          <p class="action">Утверждено ({{ sig.signerRole }})</p>
+          <p class="action">Подписано</p>
           <p class="timestamp">{{ sig.signedAt | date:'dd.MM.yyyy HH:mm' }}</p>
         </div>
       </div>
