@@ -45,49 +45,45 @@
       </div>
     </div>
 
-    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-wrapper">
-      <div class="upload-container-card">
+    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-section-card">
 
-        <div class="upload-fields">
-
-          <div class="field-group" *ngIf="role === 'ADMIN'">
-            <label for="orgName">Организация-получатель</label>
-            <input
-              id="orgName"
-              type="text"
-              [(ngModel)]="targetOrgName"
-              placeholder="Например: ТОО Дастан"
-              class="modern-input"
-            >
-          </div>
-
-          <div class="field-group">
-            <label for="docCat">Категория документа</label>
-            <select id="docCat" [(ngModel)]="selectedCategory" class="modern-select">
-              <option value="" disabled selected>Выберите категорию...</option>
-              <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
-            </select>
-          </div>
+      <div class="upload-config-row">
+        <div class="config-item" *ngIf="role === 'ADMIN'">
+          <label class="config-label">Организация-получатель (Кому):</label>
+          <input
+            type="text"
+            [(ngModel)]="targetOrgName"
+            placeholder="Введите название, например: ТОО Дастан"
+            class="admin-org-input"
+          >
+          <small class="input-hint">Укажите точное название организации для фильтрации</small>
         </div>
 
-        <label class="compact-upload" [class.file-selected]="selectedFile">
-          <span class="plus-icon">{{ selectedFile ? '✓' : '+' }}</span>
-          <div class="upload-text">
-            <strong>{{ selectedFile ? 'Файл готов' : 'Загрузить протокол' }}</strong>
-            <span>{{ selectedFileName || 'Формат .docx' }}</span>
-          </div>
-          <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
-        </label>
-
-        <button
-          *ngIf="selectedFile"
-          class="btn btn-high upload-confirm-btn"
-          [disabled]="(role === 'ADMIN' && !targetOrgName) || !selectedCategory"
-          (click)="processUpload()">
-          Опубликовать документ
-        </button>
-
+        <div class="config-item">
+          <label class="config-label">Категория документа:</label>
+          <select [(ngModel)]="selectedCategory" class="category-select">
+            <option value="" disabled selected>Выберите категорию из списка</option>
+            <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
       </div>
+
+      <label class="compact-upload" [class.ready]="selectedFile">
+        <span class="plus-icon">{{ selectedFile ? '✓' : '+' }}</span>
+        <div class="upload-text">
+          <strong>{{ selectedFile ? 'Файл выбран' : 'Загрузить протокол' }}</strong>
+          <span>{{ selectedFileName || 'Формат .docx' }}</span>
+        </div>
+        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
+      </label>
+
+      <button
+        *ngIf="selectedFile"
+        class="btn-confirm-upload"
+        [disabled]="(role === 'ADMIN' && !targetOrgName) || !selectedCategory"
+        (click)="processUpload()">
+        🚀 Опубликовать документ
+      </button>
     </div>
 
     <div class="doc-section">
