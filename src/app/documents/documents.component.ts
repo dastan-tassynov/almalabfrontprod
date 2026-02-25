@@ -266,27 +266,33 @@ export class DocumentsComponent implements OnInit {
   confirmAndUpload() {
     this.attemptPublish = true;
 
-    // 1. Проверка организации (для админа)
-    if (this.role === 'ADMIN' && (!this.targetOrgName || this.targetOrgName.trim() === '')) {
-      alert('Загрузка прервана: Не заполнено название организации!');
-      return; // Дальше код не пойдет, файл НЕ загрузится
+    // Жесткая проверка: название организации ОБЯЗАТЕЛЬНО для всех
+    if (!this.targetOrgName || !this.targetOrgName.trim()) {
+      alert('Ошибка: Название организации не заполнено! Загрузка прервана.');
+      return; // Выход, файл не отправляется
     }
 
-    // 2. Проверка категории
+    // Проверка категории
     if (!this.selectedCategory) {
-      alert('Пожалуйста, выберите категорию документа.');
+      alert('Пожалуйста, выберите категорию.');
       return;
     }
 
-    // Если всё заполнено — только тогда вызываем сервис
-    this.docService.upload(this.selectedFile!, this.selectedCategory, this.targetOrgName).subscribe({
+    // Если всё заполнено, вызываем сервис
+    this.docService.upload(
+      this.selectedFile!,
+      this.targetOrgName.trim(),
+      this.selectedCategory
+    ).subscribe({
       next: () => {
-        alert('Успешно опубликовано');
-        this.showUploadModal = false;
+        alert('Документ успешно опубликован для ' + this.targetOrgName);
         this.resetUploadForm();
         this.loadDocuments(this.role);
       },
-      error: () => alert('Ошибка при передаче данных в базу')
+      error: (err) => {
+        console.error(err);
+        alert('Ошибка при загрузке документа');
+      }
     });
   }
 
