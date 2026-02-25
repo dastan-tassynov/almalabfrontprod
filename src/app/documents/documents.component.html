@@ -45,15 +45,49 @@
       </div>
     </div>
 
-    <div *ngIf="role === 'USER'|| role === 'ADMIN'" class="upload-wrapper">
-      <label class="compact-upload">
-        <span class="plus-icon">+</span>
-        <div class="upload-text">
-          <strong>Загрузить протокол</strong>
-          <span>Формат .docx</span>
+    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-wrapper">
+      <div class="upload-container-card">
+
+        <div class="upload-fields">
+
+          <div class="field-group" *ngIf="role === 'ADMIN'">
+            <label for="orgName">Организация-получатель</label>
+            <input
+              id="orgName"
+              type="text"
+              [(ngModel)]="targetOrgName"
+              placeholder="Например: ТОО Дастан"
+              class="modern-input"
+            >
+          </div>
+
+          <div class="field-group">
+            <label for="docCat">Категория документа</label>
+            <select id="docCat" [(ngModel)]="selectedCategory" class="modern-select">
+              <option value="" disabled selected>Выберите категорию...</option>
+              <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
         </div>
-        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
-      </label>
+
+        <label class="compact-upload" [class.file-selected]="selectedFile">
+          <span class="plus-icon">{{ selectedFile ? '✓' : '+' }}</span>
+          <div class="upload-text">
+            <strong>{{ selectedFile ? 'Файл готов' : 'Загрузить протокол' }}</strong>
+            <span>{{ selectedFileName || 'Формат .docx' }}</span>
+          </div>
+          <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
+        </label>
+
+        <button
+          *ngIf="selectedFile"
+          class="btn btn-high upload-confirm-btn"
+          [disabled]="(role === 'ADMIN' && !targetOrgName) || !selectedCategory"
+          (click)="processUpload()">
+          Опубликовать документ
+        </button>
+
+      </div>
     </div>
 
     <div class="doc-section">

@@ -21,6 +21,11 @@ export class DocumentsComponent implements OnInit {
   role: string = '';
   loading: boolean = false;
   showFilters: boolean = false;
+  targetOrgName: string = '';
+  selectedCategory: string = ''; // Сюда попадет значение из фильтра
+  selectedFileName: string = '';
+  selectedFile: File | null = null;
+  organization: string = '';
 
   currentFilter: string = 'Все';
   docCategories: string[] = [
@@ -32,6 +37,33 @@ export class DocumentsComponent implements OnInit {
     'Вода бак', 'Пища', 'Контроль автоклава', 'Почва бак', 'Калорийность', 'Дез.средство',
     'Шум','Воздух рабочей зоны'
   ];
+
+  // В начале класса
+
+
+// Метод загрузки
+  processUpload() {
+    if (!this.selectedFile) return;
+
+    // Если это USER, берем его организацию, если ADMIN - берем из ввода
+    const orgToSave = this.role === 'ADMIN' ? this.targetOrgName : this.organization;
+
+    this.docService.upload(this.selectedFile, orgToSave, this.selectedCategory).subscribe({
+      next: () => {
+        alert('Успешно загружено в категорию: ' + this.selectedCategory);
+        this.resetForm();
+        this.loadDocuments(this.role); // Обновляем список на странице
+      },
+      error: (err) => alert('Ошибка при загрузке')
+    });
+  }
+
+  resetForm() {
+    this.selectedFile = null;
+    this.selectedFileName = '';
+    this.targetOrgName = '';
+    this.selectedCategory = '';
+  }
 
   returnDoc: any = null;
   returnComment: string = '';
