@@ -45,38 +45,59 @@
       </div>
     </div>
 
-    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-section-card">
+    <div *ngIf="role === 'USER' || role === 'ADMIN'" class="upload-container">
+
+      <label class="compact-upload">
+        <span class="plus-icon">+</span>
+        <div class="upload-text">
+          <strong>Загрузить протокол</strong>
+          <span>Формат .docx</span>
+        </div>
+        <input type="file" accept=".docx" hidden (change)="onFileChange($event)">
+      </label>
 
       <div class="modal-backdrop" *ngIf="showUploadModal">
         <div class="modal-window upload-setup-modal">
-          <h3>⚙️ Настройка публикации</h3>
-          <p class="file-name-preview">Файл: <strong>{{ selectedFile?.name }}</strong></p>
+          <h3 style="margin-bottom: 10px;">⚙️ Настройка публикации</h3>
+          <p class="file-name-preview" style="color: #666; font-size: 0.9rem;">
+            Файл: <strong>{{ selectedFile?.name }}</strong>
+          </p>
 
-          <hr>
+          <hr style="margin: 15px 0; border: 0.5px solid #eee;">
 
-          <div class="form-group" *ngIf="role === 'ADMIN'">
-            <label>Организация-получатель:</label>
+          <div class="form-group" *ngIf="role === 'ADMIN'" style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: bold; color: #2c3e50; margin-bottom: 8px;">
+              НАЗВАНИЕ ОРГАНИЗАЦИИ (Например: ТОО Дастан):
+            </label>
             <input
               type="text"
               [(ngModel)]="targetOrgName"
-              placeholder="Введите название (например: ТОО Дастан)"
-              class="admin-prompt-input">
-            <small class="hint">Укажите организацию, которая увидит этот документ</small>
+              placeholder="Введите название организации..."
+              class="admin-prompt-input"
+              style="width: 100%; padding: 12px; border: 2px solid #3498db; border-radius: 8px; font-size: 1rem;">
+            <small style="color: #7f8c8d;">Обязательно укажите ТОО, ИП или название компании</small>
           </div>
 
-          <div class="form-group">
-            <label>Выберите категорию документа:</label>
-            <select [(ngModel)]="selectedCategory" class="admin-prompt-select">
-              <option value="" disabled selected>-- Выберите из списка --</option>
+          <div class="form-group" style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: bold; color: #2c3e50; margin-bottom: 8px;">
+              КАТЕГОРИЯ ДОКУМЕНТА:
+            </label>
+            <select
+              [(ngModel)]="selectedCategory"
+              class="admin-prompt-select"
+              style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; background: #fff;">
+              <option value="" disabled selected>-- Выберите существующую категорию --</option>
               <option *ngFor="let cat of docCategories" [value]="cat">{{ cat }}</option>
             </select>
           </div>
 
-          <div class="modal-btns">
-            <button class="btn btn-low" (click)="showUploadModal = false">Отмена</button>
-            <button class="btn btn-high"
-                    [disabled]="!selectedCategory || (role === 'ADMIN' && !targetOrgName)"
-                    (click)="confirmAndUpload()">
+          <div class="modal-btns" style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button class="btn btn-low" (click)="cancelUpload()" style="padding: 10px 20px;">Отмена</button>
+            <button
+              class="btn btn-high"
+              [disabled]="!selectedCategory || (role === 'ADMIN' && !targetOrgName)"
+              (click)="confirmAndUpload()"
+              style="padding: 10px 25px; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer;">
               Опубликовать
             </button>
           </div>

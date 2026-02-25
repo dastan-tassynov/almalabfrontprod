@@ -113,6 +113,14 @@ export class DocumentsComponent implements OnInit {
     }
   }
 
+  cancelUpload() {
+    this.showUploadModal = false;
+    this.selectedFile = null;
+    // Очищаем инпут, чтобы можно было выбрать тот же файл снова
+    const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (input) input.value = '';
+  }
+
   // loadDocuments(role: string) {
   //   this.loading = true;
   //   console.log('Начинаю загрузку для роли:', role);
