@@ -26,6 +26,7 @@ export class DocumentsComponent implements OnInit {
   selectedFileName: string = '';
   selectedFile: File | null = null;
   organization: string = '';
+  showUploadModal: boolean = false; // Управляет видимостью окна
 
   currentFilter: string = 'Все';
   docCategories: string[] = [
@@ -243,25 +244,40 @@ export class DocumentsComponent implements OnInit {
   // Загрузка нового документа
   onFileChange(event: any) {
     const file = event.target.files[0];
-    if (file) {
-      // 1. Спрашиваем категорию
-      const category = prompt('Введите категорию документа :', 'Общее') || 'Общее';
+    if (!file) return;
 
-      // 2. Спрашиваем название организации
-      const organization = prompt('Введите название организации :', 'AlmaLab') || 'AlmaLab';
+    // Сохраняем файл во временную переменную, чтобы использовать его после выбора параметров
+    this.selectedFile = file;
 
-      // 3. Отправляем в сервис три параметра
-      this.docService.upload(file, category, organization).subscribe({
-        next: () => {
-          alert('Файл успешно загружен!');
-          this.loadDocuments(this.role);
-        },
-        error: (err) => {
-          console.error('Ошибка загрузки:', err);
-          alert('Произошла ошибка при загрузке файла');
-        }
-      });
+    // Вместо prompt открываем наше красивое окно (логику окна см. ниже в HTML)
+    this.showUploadModal = true;
+  }
+
+// Метод, который вызовется, когда админ нажмет "Опубликовать" в модальном окне
+  confirmAndUpload() {
+    if (!this.selectedFile || !this.selectedCategory || (this.role === 'ADMIN' && !this.targetOrgName)) {
+      alert('Пожалуйста, заполните все поля');
+      return;
     }
+
+    this.docService.upload(this.selectedFile, this.selectedCategory, this.targetOrgName).subscribe({
+      next: () => {
+        alert('Файл успешно загружен!');
+        this.showUploadModal = false; // Закрываем окно
+        this.resetUploadForm();
+        this.loadDocuments(this.role);
+      },
+      error: (err) => {
+        console.error('Ошибка загрузки:', err);
+        alert('Произошла ошибка при загрузке файла');
+      }
+    });
+  }
+
+  resetUploadForm() {
+    this.selectedFile = null;
+    this.selectedCategory = '';
+    this.targetOrgName = '';
   }
 
   trackById(index: number, item: any) { return item.id; }
