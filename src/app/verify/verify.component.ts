@@ -17,22 +17,29 @@ export class VerifyComponent implements OnInit {
     private route: ActivatedRoute,
     private docService: DocumentService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.docService.getPublicVerifyInfo(id).subscribe({
-        next: (data) => {
+        next: (data: any) => { // Добавили : any здесь
+          if (data && data.signatures) {
+            // Фильтруем, оставляя только записи, где есть ФИО
+            data.signatures = data.signatures.filter((sig: any) =>
+              sig.signerFullName && sig.signerFullName.trim() !== ''
+            );
+          }
           this.docInfo = data;
-          this.cdr.detectChanges(); // Форсируем обновление экрана
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Ошибка загрузки:', err);
           this.docInfo = null;
           this.cdr.detectChanges();
         }
-      });
-    }
-  }
+      }); // Закрыли subscribe
+    } // Закрыли if
+  } // Закрыли ngOnInit
 }
