@@ -263,21 +263,39 @@ export class DocumentsComponent implements OnInit {
 
 // Метод, который вызовется, когда админ нажмет "Опубликовать" в модальном окне
   confirmAndUpload() {
-    if (!this.selectedFile || !this.selectedCategory || (this.role === 'ADMIN' && !this.targetOrgName)) {
-      alert('Пожалуйста, заполните все поля');
+    // 1. Проверка на наличие файла
+    if (!this.selectedFile) {
+      alert('Файл не выбран!');
       return;
     }
 
-    this.docService.upload(this.selectedFile, this.selectedCategory, this.targetOrgName).subscribe({
+    // 2. ЖЕСТКАЯ ПРОВЕРКА НАЗВАНИЯ ОРГАНИЗАЦИИ
+    if (this.role === 'ADMIN' && (!this.targetOrgName || this.targetOrgName.trim() === '')) {
+      alert('Ошибка: Вы не заполнили название организации! Загрузка прервана.');
+      return; // ПРЕРЫВАЕМ ВЫПОЛНЕНИЕ
+    }
+
+    // 3. Проверка категории
+    if (!this.selectedCategory) {
+      alert('Выберите категорию документа!');
+      return;
+    }
+
+    // Если проверки пройдены, отправляем на сервер
+    this.docService.upload(
+      this.selectedFile,
+      this.selectedCategory,
+      this.targetOrgName.trim()
+    ).subscribe({
       next: () => {
         alert('Файл успешно загружен!');
-        this.showUploadModal = false; // Закрываем окно
+        this.showUploadModal = false;
         this.resetUploadForm();
         this.loadDocuments(this.role);
       },
       error: (err) => {
-        console.error('Ошибка загрузки:', err);
-        alert('Произошла ошибка при загрузке файла');
+        console.error(err);
+        alert('Ошибка при сохранении в базу данных');
       }
     });
   }
