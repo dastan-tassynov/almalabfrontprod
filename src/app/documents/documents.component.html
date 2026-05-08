@@ -29,6 +29,26 @@
     </div>
   </header>
 
+  <div class="filter-dashboard">
+    <div class="date-control-group">
+      <div class="date-input-wrapper">
+        <span class="calendar-icon">📅</span>
+        <input
+          type="date"
+          [(ngModel)]="selectedDate"
+          (change)="onDateChange()"
+          class="custom-date-picker">
+      </div>
+      <button class="btn-today-action" (click)="selectedDate = today(); onDateChange()">
+        Сегодня
+      </button>
+    </div>
+
+    <div class="search-summary" *ngIf="filteredDocuments.length > 0">
+      Найдено документов: <strong>{{ filteredDocuments.length }}</strong>
+    </div>
+  </div>
+
   <main class="container content-area">
     <div class="stats-row">
       <div class="stat-item b-blue" (click)="applyFilter('Все')">
@@ -113,7 +133,16 @@
         </div>
 
         <div class="card-btns">
-          <button class="btn btn-low" (click)="openDoc(d.id, d.filename)">Скачать</button>
+          <button class="btn btn-low" (click)="openDoc(d.id, d.filename)">
+            📥 Скачать
+          </button>
+
+          <ng-container *ngIf="role === 'USER' || role === 'ADMIN'">
+            <button class="btn btn-reupload-outline" (click)="reuploadInput.click()">
+              🔄 Изменить документ
+            </button>
+            <input #reuploadInput type="file" hidden (change)="onReupload(d.id, $event)" accept=".docx">
+          </ng-container>
 
           <ng-container *ngIf="role === 'ADMIN' && d.status === 'SENT_TO_ADMIN'">
             <button class="btn btn-high" (click)="adminSign(d.id)">Подписать</button>

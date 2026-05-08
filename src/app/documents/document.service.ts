@@ -61,19 +61,16 @@ export class DocumentService {
   //   return this.http.get<any[]>(url, { headers }); // Передаем хедеры напрямую
   // }
 
-  getDocumentsByRole(role: string) {
+  getDocumentsByRole(role: string, date: string): Observable<any[]> {
     let endpoint = '';
+    if (role === 'ADMIN') endpoint = '/inbox-admin';
+    else if (role === 'SUPERADMIN') endpoint = '/inbox-super';
+    else endpoint = '/my';
 
-    // Проверяем роль и выбираем правильный путь
-    if (role === 'ADMIN') {
-      endpoint = '/inbox-admin';
-    } else if (role === 'SUPERADMIN') {
-      endpoint = '/inbox-super';
-    } else {
-      endpoint = '/my'; // Для обычного юзера
-    }
-
-    return this.http.get<any[]>(`${this.api}${endpoint}`);
+    // Передаем дату как Query Parameter (?date=2026-02-25)
+    return this.http.get<any[]>(`${this.api}${endpoint}`, {
+      params: { date: date }
+    });
   }
 
   reupload(id: number, file: File): Observable<any> {

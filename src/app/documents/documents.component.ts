@@ -153,19 +153,33 @@ export class DocumentsComponent implements OnInit {
   //   });
   // }
 
-
+  selectedDate: string = new Date().toISOString().split('T')[0];
 // В loadDocuments тоже вызываем правильный фильтр
   loadDocuments(role: string) {
     this.loading = true;
-    this.docService.getDocumentsByRole(role).subscribe({
+    // Теперь передаем и роль, и дату
+    this.docService.getDocumentsByRole(role, this.selectedDate).subscribe({
       next: (data) => {
         this.documents = data || [];
-        this.applyFilter('Все'); // По умолчанию активные задачи
+        this.applyFilter('Все');
         this.calculateCounters();
         this.loading = false;
         this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Ошибка загрузки:', err);
+        this.loading = false;
       }
     });
+  }
+  today(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  onDateChange() {
+    if (this.role) {
+      this.loadDocuments(this.role);
+    }
   }
   toggleFilters() {
     this.showFilters = !this.showFilters;
